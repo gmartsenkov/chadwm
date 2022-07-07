@@ -1,5 +1,4 @@
 chadwm/dwm 
-chadwm/config.h 
 chadwm/*.o
 chadwm/*.orig
 chadwm/*.rej
