@@ -20,11 +20,13 @@ pkg_updates() {
   updates=$(pacman -Qu | wc -l)   # arch
   # updates=$(aptitude search '~U' | wc -l)  # apt (ubuntu,debian etc)
 
-  if [ -z "$updates" ]; then
-    printf "^c$green^  Fully Updated"
+  if [ "$updates" -eq "0" ]; then
+    result="^c$green^  Fully Updated"
   else
-    printf "^c$green^  $updates"" updates"
+    result="^c$green^  $updates"" updates"
   fi
+
+  printf "$result"
 }
 
 battery() {
@@ -51,13 +53,32 @@ wlan() {
 
 clock() {
 	printf "^c$black^ ^b$darkblue^ 󱑆 "
-	printf "^c$black^^b$blue^ $(date '+%H:%M')  "
+	printf "^c$black^^b$blue^ $(date '+%H:%M %d-%b')  "
+}
+
+volume() {
+  vol=$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')
+  muted=$(amixer get Master | tail -2 | grep -c '\[on\]')
+
+  if [ "$muted" -eq "2" ]; then
+    result="^b$darkblue^^c$grey^  $vol ^d^"
+  else
+    result="^b$darkblue^^c$grey^  Muted ^d^"
+  fi
+
+  printf "$result"
+}
+
+weather() {
+  temp=$(curl -s 'wttr.in/Cambridge?format=%C+%t')
+
+  printf "^b$grey^^c$white^ $temp ^d^"
 }
 
 while true; do
 
-  [ $interval = 0 ] || [ $(($interval % 3600)) = 0 ] && updates=$(pkg_updates)
+  [ $interval = 0 ] || [ $(($interval % 3600)) = 0 ] && updates=$(pkg_updates) && weather=$(weather)
   interval=$((interval + 1))
 
-  sleep 1 && xsetroot -name "$updates $(battery) $(brightness) $(cpu) $(mem) $(wlan) $(clock)"
+  sleep 1 && xsetroot -name "$updates $weather $(cpu) $(mem) $(wlan) $(volume) $(clock)"
 done
