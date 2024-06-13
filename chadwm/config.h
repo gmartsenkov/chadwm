@@ -3,7 +3,7 @@
 #include <X11/XF86keysym.h>
 
 /* appearance */
-static const unsigned int borderpx  = 0;        /* border pixel of windows */
+static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int default_border = 0;   /* to switch back to default border after dynamic border resizing via keybinds */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int gappih    = 10;       /* horiz inner gap between windows */
@@ -32,7 +32,7 @@ static const char *fonts[]          = { "JetBrainsMono Nerd Font:style:medium:si
                                         "Material Design Icons Desktop:size=10" };
 
 // theme
-#include "themes/onedark.h"
+#include "themes/catppuccin.h"
 
 static const char *colors[][3]      = {
     /*                     fg       bg      border */
@@ -56,11 +56,11 @@ static const char *colors[][3]      = {
 
 static char *tags[] = {"", "", "", "", ""};
 
-static const char* eww[] = { "eww", "open" , "eww", NULL };
+/*static const char* eww[] = { "eww", "open" , "eww", NULL };*/
 
-static const Launcher launchers[] = {
+static const Launcher launchers[0] = {
     /* command     name to display */
-    { eww,         "" },
+    /*{ eww,         "" },*/
 };
 
 static const int tagschemes[] = {
@@ -91,7 +91,6 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 #define FORCE_VSPLIT 1  /* nrowgrid layout: force two clients to always split vertically */
 #include "functions.h"
-
 
 static const Layout layouts[] = {
     /* symbol     arrange function */
@@ -128,8 +127,8 @@ static const Layout layouts[] = {
 static Key keys[] = {
     /* modifier                         key         function        argument */
 
-    // brightness and audio 
-    {0,                     XF86XK_AudioMute,       spawn,          SHCMD("pamixer -t")},
+    // brightness and audio
+    {0,              XF86XK_AudioMute,              spawn,          SHCMD("pamixer -t")},
     {0,              XF86XK_AudioRaiseVolume,       spawn,          SHCMD("pamixer -i 5")},
     {0,              XF86XK_AudioLowerVolume,       spawn,          SHCMD("pamixer -d 5")},
     {0,              XF86XK_AudioPlay,              spawn,          SHCMD("playerctl play-pause")},
@@ -146,9 +145,9 @@ static Key keys[] = {
 
 
     { MODKEY,                           XK_c,       spawn,          SHCMD("rofi -show drun") },
-    { MODKEY,                           XK_Return,  spawn,          SHCMD("st")},
+    { MODKEY,                           XK_Return,  spawn,          SHCMD("wezterm")},
    // { MODKEY,                           XK_Return, spawn,            SHCMD("st_pad && st")},
-    
+
 
     // toggle stuff
     { MODKEY,                           XK_b,       togglebar,      {0} },
@@ -160,9 +159,9 @@ static Key keys[] = {
     { MODKEY,                           XK_j,       focusstack,     {.i = +1 } },
     { MODKEY,                           XK_k,       focusstack,     {.i = -1 } },
     { MODKEY,                           XK_i,       incnmaster,     {.i = +1 } },
-    { MODKEY,                           XK_d,       incnmaster,     {.i = -1 } },
+    /*{ MODKEY,                           XK_d,       incnmaster,     {.i = -1 } },*/
 
-    // change m,cfact sizes 
+    // change m,cfact sizes
     { MODKEY,                           XK_h,       setmfact,       {.f = -0.05} },
     { MODKEY,                           XK_l,       setmfact,       {.f = +0.05} },
     { MODKEY|ShiftMask,                 XK_h,       setcfact,       {.f = +0.25} },
@@ -187,7 +186,7 @@ static Key keys[] = {
     { MODKEY|ControlMask,               XK_o,       incrogaps,      {.i = +1 } },
     { MODKEY|ControlMask|ShiftMask,     XK_o,       incrogaps,      {.i = -1 } },
 
-    // inner+outer hori, vert gaps 
+    // inner+outer hori, vert gaps
     { MODKEY|ControlMask,               XK_6,       incrihgaps,     {.i = +1 } },
     { MODKEY|ControlMask|ShiftMask,     XK_6,       incrihgaps,     {.i = -1 } },
     { MODKEY|ControlMask,               XK_7,       incrivgaps,     {.i = +1 } },
@@ -201,7 +200,7 @@ static Key keys[] = {
 
 
     // layout
-    { MODKEY,                           XK_t,       setlayout,      {.v = &layouts[0]} },
+    /*{ MODKEY,                           XK_t,       setlayout,      {.v = &layouts[0]} },*/
     { MODKEY|ShiftMask,                 XK_f,       setlayout,      {.v = &layouts[1]} },
     { MODKEY,                           XK_m,       setlayout,      {.v = &layouts[2]} },
     { MODKEY|ControlMask,               XK_g,       setlayout,      {.v = &layouts[10]} },

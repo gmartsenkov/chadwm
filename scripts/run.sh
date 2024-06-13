@@ -1,8 +1,9 @@
 #!/bin/sh
 
-xrdb merge ~/.Xresources 
+xrdb merge ~/.Xresources
+xrandr --output HDMI-0 --mode 3840x2160 --rate 143.99
 xbacklight -set 10 &
-feh --bg-fill ~/Pictures/lamp.png &
+feh --bg-fill ~/Pictures/wallpaper.png &
 xset r rate 200 50 &
 picom &
 
